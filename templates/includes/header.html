@@ -1,0 +1,180 @@
+{% load static %}
+
+        <header>
+			<div class="header-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 col-sm-4">
+							<div class="left-header clearfix">
+								<ul>
+									<li><p><i class="fa fa-phone" aria-hidden="true"></i>(+880) 1910 000251</p></li>
+									<li class="hd-none"><p><i class="fa fa-clock-o" aria-hidden="true"></i>Пон - пят : 9:00-19:00</p></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-8">
+							<div class="right-header">
+								<ul>
+									<li><a href="my-account.html"><i class="fa fa-user"></i>Мой Аккаунт</a></li>
+									<li><a href="cart.html"><i class="fa fa-shopping-cart"></i>Корзина</a></li>
+									<li><a href="login.html"><i class="fa fa-lock"></i>Вход</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="header-bottom header-bottom-one" id="sticky-menu">
+				<div class="container relative">
+					<div class="row">
+						<div class="col-sm-2 col-md-2 col-xs-4">
+							<div class="logo">
+								<a href="index.html"><img src="{% static 'img/logo.png' %}" alt="" /></a>
+							</div>
+						</div>
+						<div class="col-sm-10 col-md-10 col-xs-8 static">
+							<div class="all-manu-area">
+							    <div class="mainmenu clearfix hidden-sm hidden-xs">
+                                    <nav>
+                                        <ul>
+                                            <li><a href="{% url 'main' %}">Главная</a>
+                                            </li>
+                                            <li><a href="{% url 'category' %}">Категории</a>
+                                                <div class="magamenu ">
+                                                    <ul class="again">
+                                                        <li class="single-menu colmd4">
+                                                            <span>Легковушки</span>
+                                                            <a href="#">Шины</a>
+                                                            <a href="#">Стёклы</a>
+                                                            <a href="#">Моторная часть</a>
+                                                        </li>
+                                                        <li class="single-menu colmd4">
+                                                            <span>Грузовики</span>
+                                                            <a href="#">Шины</a>
+                                                            <a href="#">Стёклы</a>
+                                                            <a href="#">Моторная часть</a>
+                                                        </li>
+                                                        <li class="single-menu colmd4">
+                                                            <span>Аксессуары</span>
+                                                            <a href="#">Ветровики</a>
+                                                            <a href="#">Мухобойки</a>
+                                                        </li>
+                                                        <li class="single-menu colmd4 colmd5">
+                                                            <a href="#">
+                                                                <img alt="" src="{% static 'img/maga-banner.png' %}">
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+
+                                            <li><a href="{% url 'blog' %}">Отзывы</a></li>
+                                            <li><a href="#">Мой профиль</a>
+                                                <ul>
+                                                    <li><a href="login.html">Вход</a></li>
+                                                    <li><a href="my-account.html">Мой аккаунт</a></li>
+                                                    <li><a href="cart.html">Корзина</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="{% url 'about_us' %}">О нас</a></li>
+                                            <li><a href="{% url 'contact' %}">Контакты</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!-- mobile menu start -->
+                                <div class="mobile-menu-area hidden-lg hidden-md">
+                                    <div class="mobile-menu">
+                                        <nav id="dropdown">
+                                            <ul>
+                                                <li><a href="{% url 'main' %}">Главная</a></li>
+                                                <li><a href="{% url 'category' %}">Категории</a>
+                                                    <li class="single-menu colmd4">
+                                                            <span>Легковушки</span>
+                                                            <a href="#">Шины</a>
+                                                            <a href="#">Стёклы</a>
+                                                            <a href="#">Моторная часть</a>
+                                                        </li>
+                                                        <li class="single-menu colmd4">
+                                                            <span>Грузовики</span>
+                                                            <a href="#">Шины</a>
+                                                            <a href="#">Стёклы</a>
+                                                            <a href="#">Моторная часть</a>
+                                                        </li>
+                                                        <li class="single-menu colmd4">
+                                                            <span>Аксессуары</span>
+                                                            <a href="#">Ветровики</a>
+                                                            <a href="#">Мухобойки</a>
+                                                        </li>
+                                                </li>
+
+                                                <li><a href="{% url 'blog' %}">Отзывы</a></li>
+                                                <li><a href="#">Мой профиль</a>
+                                                    <ul>
+                                                        <li><a href="login.html">Вход</a></li>
+                                                        <li><a href="my-account.html">Мой аккаунт</a></li>
+                                                        <li><a href="cart.html">Корзина</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="{% url 'about_us' %}">О нас</a></li>
+                                                <li><a href="{% url 'contact' %}">Контакты</a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                                <!-- mobile menu end -->
+                                <div class="right-header re-right-header">
+                                    <ul>
+                                        <li class="re-icon tnm"><i class="fa fa-search" aria-hidden="true"></i>
+                                            <form method="get" id="searchform" action="#">
+                                                <input type="text" value="" name="s" id="ws" placeholder="Search product..." />
+                                                <button type="submit"><i class="pe-7s-search"></i></button>
+                                            </form>
+                                        </li>
+                                        <li><a href="cart.html"><i class="fa fa-shopping-cart"></i><span class="color1">2</span></a>
+                                            <ul class="drop-cart">
+                                                <li>
+                                                    <a href="cart.html"><img src="{% static 'img/cart/1.png' %}" alt="" /></a>
+                                                    <div class="add-cart-text">
+                                                        <p><a href="#">White Shirt</a></p>
+                                                        <p>$50.00</p>
+                                                        <span>Color : Blue</span>
+                                                        <span>Size   : SL</span>
+                                                    </div>
+                                                    <div class="pro-close">
+                                                        <i class="pe-7s-close"></i>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <a href="cart.html"><img src="{% static 'img/cart/2.png' %}" alt="" /></a>
+                                                    <div class="add-cart-text">
+                                                        <p><a href="#">White Shirt</a></p>
+                                                        <p>$50.00 x 2</p>
+                                                        <span>Color : Blue</span>
+                                                        <span>Size   : SL</span>
+                                                    </div>
+                                                    <div class="pro-close">
+                                                        <i class="pe-7s-close"></i>
+                                                    </div>
+                                                </li>
+                                                <li class="total-amount clearfix">
+                                                    <span class="floatleft">total</span>
+                                                    <span class="floatright"><strong>= $150.00</strong></span>
+                                                </li>
+                                                <li>
+                                                    <div class="goto text-center">
+                                                        <a href="cart.html"><strong>go to cart &nbsp;<i class="pe-7s-angle-right"></i></strong></a>
+                                                    </div>
+                                                </li>
+                                                <li class="checkout-btn text-center">
+                                                    <a href="checkout.html">Check out</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
