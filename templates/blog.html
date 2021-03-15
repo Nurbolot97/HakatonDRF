@@ -45,10 +45,6 @@
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
     </head>
     <body>
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
         <!-- pages-title-start -->
         {% block content %}
 		<section class="contact-img-area">
@@ -90,73 +86,45 @@
                                         ,
                                         <a href="#">Lorem</a>
                                     </span>
-                                    <span class="comments-number">
-                                        <i class="fa fa-comment"></i>
-                                        <a href="#">0 Comment</a>
-                                    </span>
                                 </div>
                                 <div class="tb-excerpt"> Aenean id tellus justo elit, sit amet sodales purus vulputate non. Nullam lorem eros, posuere nec sodales at, aliquet. Ut luctus justo elit, sit amet sodales purus vulputate non. Nullam lorem eros, posuere nec sodales at, aliquet gravida dui. Aenean id tellus in libero porta ultricies. Donec viverra interdum... </div>
                                 <a class="blog7" href="#">READ MORE</a>
                             </div>
                         </div>
-                       <div class="tb-post-item">
-                            <a href="#">
-                                <div class="tb-thumb">
-                                    <img src="{% static 'img/banner/13.jpg' %}" alt="">
-                                    <span class="tb-publish font-noraure-3">Dec / 08</span>
+						<div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <div class="text">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li role="presentation">
+                                            <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Оставить отзыв</a>
+                                        </li>
+                                    </ul>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content tab-con2">
+                                        <div role="tabpanel" class="tab-pane active" id="home">{{ product.description }}</div>
+                                        <div role="tabpanel" class="tab-pane" id="profile">
+                                            <form class="form-horizontal" method="POST">
+                                                {% csrf_token %}
+                                                <div class="form-group required">
+                                                    <div class="col-sm-12">
+                                                        <label class="control-label" for="input-review">Ваш отзыв</label>
+                                                        <textarea id="input-review" class="form-control" rows="5" name="text"></textarea>
+                                                        <div class="help-block">
+                                                            <span class="text-danger">Примечание:</span>
+                                                            HTML is not translated!
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="buttons si-button">
+                                                    <div class="pull-right">
+                                                        <button id="button-review" class="btn btn-primary" data-loading-text="Loading..." type="submit">Отправить</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                            </a>
-                            <div class="tb-content7">
-                                <a href="#"><h4 class="tb-titlel">Photography Tips From Wai Su</h4></a>
-                                <div class="blog-info">
-                                    <span class="author-name">
-                                        <i class="fa fa-user"></i>
-                                        By
-                                        <a href="#">admin</a>
-                                    </span>
-                                    <span class="categories">
-                                        <i class="fa fa-tag"></i>
-                                        <a href="#">Consectetur</a>
-                                        ,
-                                        <a href="#">Lorem</a>
-                                    </span>
-                                    <span class="comments-number">
-                                        <i class="fa fa-comment"></i>
-                                        <a href="#">0 Comment</a>
-                                    </span>
-                                </div>
-                                <div class="tb-excerpt"> Aenean id tellus justo elit, sit amet sodales purus vulputate non. Nullam lorem eros, posuere nec sodales at, aliquet. Ut luctus justo elit, sit amet sodales purus vulputate non. Nullam lorem eros, posuere nec sodales at, aliquet gravida dui. Aenean id tellus in libero porta ultricies. Donec viverra interdum... </div>
-                                <a class="blog7" href="#">READ MORE</a>
-                            </div>
-                        </div>
-                       <div class="tb-post-item ma-nn">
-                            <a href="#">
-                                <div class="tb-thumb">
-                                    <img src="{% static 'img/banner/14.jpg' %}" alt="">
-                                    <span class="tb-publish font-noraure-3">Nov / 21</span>
-                                </div>
-                            </a>
-                            <div class="tb-content7">
-                                <a href="#"><h4 class="tb-titlel">Summer Classics in Positano</h4></a>
-                                <div class="blog-info">
-                                    <span class="author-name">
-                                        <i class="fa fa-user"></i>
-                                        By
-                                        <a href="#">admin</a>
-                                    </span>
-                                    <span class="categories">
-                                        <i class="fa fa-tag"></i>
-                                        <a href="#">Consectetur</a>
-                                        ,
-                                        <a href="#">Lorem</a>
-                                    </span>
-                                    <span class="comments-number">
-                                        <i class="fa fa-comment"></i>
-                                        <a href="#">0 Comment</a>
-                                    </span>
-                                </div>
-                                <div class="tb-excerpt"> Aenean id tellus justo elit, sit amet sodales purus vulputate non. Nullam lorem eros, posuere nec sodales at, aliquet. Ut luctus justo elit, sit amet sodales purus vulputate non. Nullam lorem eros, posuere nec sodales at, aliquet gravida dui. Aenean id tellus in libero porta ultricies. Donec viverra interdum... </div>
-                                <a class="blog7" href="#">READ MORE</a>
                             </div>
                         </div>
                        <nav class="pagination tb-pagination text-right">
@@ -222,81 +190,6 @@
                                             <span>Dec, 11, 2015</span>
                                         </div>
                                     </div>
-                                </li>
-                           </ul>
-                       </div>
-                       <div class="zo-recent-posts2">
-                            <h3 class="wg-title">Recent Posts</h3>
-                           <ul>
-                               <li>
-                                    <a href="#">That most modern</a>
-                                </li>
-                                <li>
-                                    <a href="#">Glance Into the Future of Androids</a>
-                                </li>
-                                <li>
-                                    <a href="#">Nullam at tellus vehicula</a>
-                                </li>
-                                <li>
-                                    <a href="#">Summer Classics in Positano</a>
-                                </li>
-                                <li>
-                                    <a href="#">Photography Tips From Wai Su</a>
-                                </li>
-                           </ul>
-                       </div>
-                       <div class="zo-recent-posts3">
-                            <h3 class="wg-title">Recent Comments</h3>
-                       </div>
-                       <div class="zo-recent-posts2">
-                            <h3 class="wg-title">Archives</h3>
-                           <ul>
-                               <li>
-                                    <a href="#">December 2015</a>
-                                </li>
-                                <li>
-                                    <a href="#">November 2015</a>
-                                </li>
-                           </ul>
-                       </div>
-                       <div class="zo-recent-posts2 os4">
-                            <h3 class="wg-title">Categories</h3>
-                           <ul>
-                               <li>
-                                    <a href="#">Consectetur</a>
-                                </li>
-                                <li>
-                                    <a href="#">Fashion</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem</a>
-                                </li>
-                                <li>
-                                    <a href="#">Uncategorized</a>
-                                </li>
-                           </ul>
-                       </div>
-                       <div class="zo-recent-posts2">
-                            <h3 class="wg-title">Meta</h3>
-                           <ul>
-                               <li>
-                                    <a href="#">Register</a>
-                                </li>
-                                <li>
-                                    <a href="#">Log in</a>
-                                </li>
-                                <li>
-                                    <a href="#">Entries
-                                        <abbr>RSS</abbr>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Comments 
-                                        <abbr>RSS</abbr>
-                                    </a>
-                                </li>
-                               <li>
-                                    <a href="#">WordPress.org</a>
                                 </li>
                            </ul>
                        </div>
