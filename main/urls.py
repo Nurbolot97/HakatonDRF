@@ -12,6 +12,6 @@ urlpatterns = [
     path('add-to-cart/<str:ct_model>/<str:slug>/', AddToCartView.as_view(), name='add_to_cart'),
     path('delete-product-from-cart/<str:ct_model>/<str:slug>/', DeleteFromCartView.as_view(), name='delete_product_from_cart'),
     path('change-qty/<str:ct_model>/<str:slug>/', ChangeQuantityView.as_view(), name='change_quantity'),
-
+    path('order-checkout/', OrderView.as_view(), name='order_checkout'),
     path('products/<str:ct_model>/<str:slug>/', ProductDetailView.as_view(), name='product_detail'),
 ]

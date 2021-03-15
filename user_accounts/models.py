@@ -1,7 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager
-from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager
+
+from api.models import Cart
+
 
 
 class UserManager(BaseUserManager):
@@ -82,6 +85,7 @@ class Order(models.Model):
     last_name = models.CharField(max_length=255, verbose_name='Фамилия')
     phone = models.CharField(max_length=255, verbose_name='Телефон')
     address = models.CharField(max_length=255, null=True, blank=True)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, verbose_name='Корзина')
     status = models.CharField(max_length=255, verbose_name='Статус заказа', choices=STATUS_CHOICES, default=STATUS_NEW)
     buying_type = models.CharField(max_length=255, verbose_name='Тип заказа', choices=BUYING_TYPE_CHOICES, default=BUYING_TYPE_SELF)
     comment = models.TextField(verbose_name='Комментарий к заказу', null=True, blank=True)
@@ -89,6 +93,6 @@ class Order(models.Model):
     ordered_at = models.DateField(verbose_name='Дата получения заказа', default=timezone.now)
 
     def __str__(self):
-        return 
+        return str(self.id)
 
 

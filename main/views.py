@@ -1,15 +1,21 @@
 from django.shortcuts import render
-from .models import *
-from user_accounts.models import User
-from .mixins import CategoryMixin, CartMixin
-from django.contrib.contenttypes.models import ContentType
-from django.views.generic import TemplateView, ListView, DetailView, View
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
+from .models import *
+from api.models import Cart
+from user_accounts.models import User
+from .mixins import CategoryMixin, CartMixin
+from django.contrib.contenttypes.models import ContentType
+from .forms import OrderForm
+from django.views.generic import (TemplateView, ListView, 
+                                    DetailView, View)
 
 
-class MainPageView(CartMixin, TemplateView):
+
+
+
+class MainPageView(CartMixin, CategoryMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         categories = Category.objects.get_categories_for_top()
@@ -91,7 +97,7 @@ class ProductDetailView(CartMixin, CategoryMixin, DetailView):
         return context
 
 
-class AddToCartView(CartMixin, View):
+class AddToCartView(CartMixin, CategoryMixin, View):
 
     def get(self, request, *args, **kwargs):
         try:
@@ -113,7 +119,7 @@ class AddToCartView(CartMixin, View):
             return HttpResponseRedirect('/accounts/signup/')
 
 
-class DeleteFromCartView(CartMixin, View):
+class DeleteFromCartView(CartMixin, CategoryMixin, View):
 
     def get(self, request, *args, **kwargs):
         try:
@@ -135,7 +141,7 @@ class DeleteFromCartView(CartMixin, View):
             return HttpResponseRedirect('/accounts/signup/')
 
 
-class ChangeQuantityView(CartMixin, View):
+class ChangeQuantityView(CartMixin, CategoryMixin, View):
 
     def post(self, request, *args, **kwargs):
         try:
@@ -168,6 +174,39 @@ class CartView(CartMixin, CategoryMixin, View):
             'categories': categories
         }
         return render(request, 'checkout.html', context)
+
+
+class OrderView(CartMixin, CategoryMixin, View):
+
+    def get(self, request, *args, **kwargs):
+        categories = Category.objects.get_categories_for_top()
+        form = OrderForm(request.POST or None)
+        context = {
+            'cart': self.cart,
+            'categories': categories,
+            'form': form
+        }
+        return render(request, 'order.html', context)
+
+
+class MakeOrderView(CartMixin, View):
+
+    def post(self, request, **args, **kwargs):
+        form = OrderForm(request.POST or None)
+        if form.is_valid():
+            new_order = form.save(commit=False)
+            new_order.email = User.objects.get(email=request.user.email)
+            new_order.first_name = form.cleaned_data['first_name']
+            new_order.last_name = form.cleaned_data['last_name']
+            new_order.phone = form.cleaned_data['phone']
+            new_order.address = form.cleaned_data['address']
+            new_order.buying_type = form.cleaned_data['buying_type']
+            new_order.ordered_at = form.cleaned_data['ordered_at']
+            new_order.comment = form.cleaned_data['comment']
+            new_order.save()
+            self.cart.in_order = True
+
+
 
 
 
