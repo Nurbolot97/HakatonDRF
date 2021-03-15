@@ -1,9 +1,8 @@
 from django.contrib import admin
 from django import forms
-from .models import *
 from django.forms import ModelForm, ValidationError, ModelChoiceField
 
-
+from .models import *
 
 
 class WheelAdmin(admin.ModelAdmin):
@@ -36,6 +35,8 @@ admin.site.register(Category)
 admin.site.register(Wheel, WheelAdmin)
 admin.site.register(Engine, EngineAdmin)
 admin.site.register(Display, DisplayAdmin)
+admin.site.register(Order)
+admin.site.register(User)
 
 
 

@@ -31,13 +31,6 @@
                                 <h3 class="checkbox9">Корзина</h3>
                             </div>
                             {% endif %}
-                            {% if messages %}
-                                {% for message in messages %}
-                                    <div class="alert alert-warning" style="text-align: center;" role="alert">
-                                        {{ message }}
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
                             {% for item in cart.products.all %}
                             <div class="ro-body">
                                 <div class="ro-item">

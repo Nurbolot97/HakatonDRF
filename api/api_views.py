@@ -1,6 +1,4 @@
-from user_accounts.models import User
 from main.models import *
-from user_accounts.models import *
 from django.shortcuts import redirect, render
 from .serializers import (UserRegisterSerializer, CategorySerializer, 
                             EnginesSerializer, DisplaysSerializer,
