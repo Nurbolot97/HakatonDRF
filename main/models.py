@@ -129,15 +129,14 @@ class Cart(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            super(Cart, self).save(*args, **kwargs)
-        super(Cart, self).save(*args, **kwargs)
+            super(Cart, self).save(args, kwargs)
         cart_data = self.products.aggregate(models.Sum('final_price'), models.Count('id'))
         if cart_data.get('final_price__sum'):
             self.final_price = cart_data['final_price__sum']
         else:
             self.final_price = 0
         self.total_products = cart_data['id__count']
-        super().save(*args, **kwargs)
+        super(Cart, self).save(args, kwargs)
 
 
 class Wheel(Product):

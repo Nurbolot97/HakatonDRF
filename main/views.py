@@ -9,7 +9,7 @@ from django.contrib import messages
 
 
 
-class MainPageView(CartMixin, TemplateView):
+class MainPageView(CartMixin, CategoryMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         categories = Category.objects.get_categories_for_top()
@@ -91,7 +91,7 @@ class ProductDetailView(CartMixin, CategoryMixin, DetailView):
         return context
 
 
-class AddToCartView(CartMixin, View):
+class AddToCartView(CartMixin, CategoryMixin, View):
 
     def get(self, request, *args, **kwargs):
         try:
@@ -113,7 +113,7 @@ class AddToCartView(CartMixin, View):
             return HttpResponseRedirect('/accounts/signup/')
 
 
-class DeleteFromCartView(CartMixin, View):
+class DeleteFromCartView(CartMixin, CategoryMixin, View):
 
     def get(self, request, *args, **kwargs):
         try:
@@ -135,7 +135,7 @@ class DeleteFromCartView(CartMixin, View):
             return HttpResponseRedirect('/accounts/signup/')
 
 
-class ChangeQuantityView(CartMixin, View):
+class ChangeQuantityView(CartMixin, CategoryMixin, View):
 
     def post(self, request, *args, **kwargs):
         try:
