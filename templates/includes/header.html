@@ -119,7 +119,7 @@
                                                 <button type="submit"><i class="pe-7s-search"></i></button>
                                             </form>
                                         </li>
-                                        <li><a href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i><span class="color1">2</span></a>
+                                        <li><a href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i><span class="color1">{{ cart.products.count }}</span></a>
                                         </li>
                                     </ul>
                                 </div>

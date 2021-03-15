@@ -118,13 +118,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = config('EMAIL')
-# EMAIL_HOST_PASSWORD = config('PASS')
-# EMAIL_USE_TLS = True
-# EMAIL_USE_SSL = False
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config('EMAIL')
+EMAIL_HOST_PASSWORD = config('PASS')
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
 
 # Static files (CSS, JavaScript, Images)

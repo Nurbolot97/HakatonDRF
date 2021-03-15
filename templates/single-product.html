@@ -176,19 +176,11 @@
                                     </div>
                                     <div class="add-to-box1">
                                         <div class="add-to-box add-to-box2">
-                                            <div class="add-to-cart">
-                                                <div class="input-content">
-                                                    <label>Quantity:</label>
-                                                    <div class="quantity">
-                                                        <div class="cart-plus-minus">
-                                                          <input type="text" value="0" name="qtybutton" class="cart-plus-minus-box">
-                                                         </div>
-                                                    </div>
-                                                </div>
+                                            <p class="cart mt-3" style="float: left;">Добавить в корзину:</p>
+                                            <div class="add-to-cart" style="float: center;">
                                                 <div class="product-icon">
-                                            <!-- Corzina -->
-                                                    <a href="#">
-                                                        <i class="fa fa-shopping-cart"></i>
+                                                    <a href="{% url 'add_to_cart' ct_model=ct_model slug=product.slug %}">
+                                                       <i class="fa fa-shopping-cart"></i>
                                                     </a>
                                                 </div>
                                             </div>

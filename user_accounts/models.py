@@ -41,6 +41,7 @@ class User(AbstractUser):
     password = models.CharField(max_length=255)
     password2 = models.CharField(max_length=255)
     registered_at = models.DateTimeField(auto_now_add=True)
+    # photo = models.ImageField(upload_to = "photos/Y%/%m/%d/", null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['password', 'password2']

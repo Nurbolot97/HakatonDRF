@@ -15,6 +15,7 @@
 		============================================ -->		
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
 		<!-- google fonts -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 		<link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700' rel='stylesheet' type='text/css'>
 		<!-- all css here -->
 		<!-- bootstrap v3.3.6 css -->
@@ -44,6 +45,9 @@
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 		<!-- modernizr css -->
         <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     </head>
     <body>
         <!-- pages-title-start -->
@@ -62,81 +66,11 @@
         </section>
 		<!-- pages-title-end -->
 		<!-- checkout content section start -->
-        <div class="checkout-area">
+        <div class="checkout-area mt-0">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="coupon-accordion">
-                            <h3>Returning customer?  <span id="showcoupon3">Click here to login</span></h3>
-                            <div id="checkout_coupon3" class="coupon-checkout-content">
-                                <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new customer, please proceed to the Billing & Shipping section.</p>
-                                <div class="coupon-info top1">
-                                    <form action="#">
-                                        <p class="checkout-coupon top">
-                                            <label class="l-contact">
-                                                Username or email 
-                                                <em>*</em>
-                                            </label>
-                                            <input type="email" />
-                                        </p>
-                                        <p class="checkout-coupon top-down">
-                                            <label class="l-contact">
-                                                password
-                                                <em>*</em>
-                                            </label>
-                                            <input type="password" />
-                                        </p>
-                                        <div class="cop-left">
-                                            <input type="submit" value="login" />
-                                            <label class="inline">
-                                                <input type="checkbox" name="rememberme">
-                                                Remember me
-                                            </label>
-                                        </div>
-                                        <p class="lost_password">
-                                            <a href="#">Lost your password?</a>
-                                        </p>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="coupon-accordion res">
-                            <h3>Have a coupon? <span id="showcoupon">Click here to enter your code</span></h3>
-                            <div id="checkout_coupon" class="coupon-checkout-content tnm">
-                                <div class="coupon-info">
-                                    <form action="#">
-                                        <p class="checkout-coupon res">
-                                            <input type="text" placeholder="Coupon code" />
-                                            <input type="submit" value="Apply Coupon" />
-                                        </p>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-md-7 col-sm-12">
                         <div class="text">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active ano complete">
-                                    <a href="#home" aria-controls="home" role="tab" data-toggle="tab"></a>
-                                    <span>Address</span>
-                                </li>
-                                <li role="presentation" class="ano ">
-                                    <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"></a>
-                                    <span>Payment</span>
-                                </li>
-                                <li role="presentation" class="ano la">
-                                    <a href="#message" aria-controls="message" role="tab" data-toggle="tab"></a>
-                                    <span>Complete</span>
-                                </li>
-                            </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" id="home">
@@ -144,7 +78,7 @@
                                         <form action="#">
                                             <div class="checkbox-form">
                                                 <div class="col-md-12">
-                                                    <h3 class="checkbox9">SHIPPING ADDRESS DETAILS</h3>
+                                                    <h3 class="checkbox9">ОФОРМЛЕНИЕ ЗАКАЗА</h3>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="di-na bs">
@@ -256,251 +190,94 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h3 class="checkbox9">SHIP TO A DIFFERENT ADDRESS?</h3>
-                                            <div id="showcoupon2">
-                                                <input class="input-checkbox" type="checkbox">
-                                            </div>
-                                        </div>
-                                        <div id="checkout_coupon2" class="coupon-checkout-content2">
-                                            <div class="checkbox-form">
-                                                <div class="col-md-6">
-                                                    <div class="di-na bs">
-                                                        <label class="l-contact">
-                                                        First Name 
-                                                        <em>*</em>
-                                                        </label>
-                                                        <input class="form-control" type="text" required="" name="name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="di-na bs">
-                                                        <label class="l-contact">
-                                                        Last Name 
-                                                        <em>*</em>
-                                                        </label>
-                                                        <input class="form-control" type="text" required="" name="name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="di-na bs">
-                                                        <label class="l-contact">
-                                                        Company Name
-                                                        <em>*</em>
-                                                        </label>
-                                                        <input class="form-control" type="text" required="" name="name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="di-na bs">
-                                                        <label class="l-contact">
-                                                        Email Address 
-                                                        <em>*</em>
-                                                        </label>
-                                                        <input class="form-control" type="email" required="" name="name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="di-na bs">
-                                                        <label class="l-contact">
-                                                        Phone 
-                                                        <em>*</em>
-                                                        </label>
-                                                        <input class="form-control" type="tel" required="" name="name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="country-select">
-                                                        <label class="l-contact">
-                                                        Country 
-                                                        <em>*</em>
-                                                        </label>
-                                                        <select class="email s-email s-wid">
-                                                            <option>Bangladesh</option>
-                                                            <option>Albania</option>
-                                                            <option>Åland Islands</option>
-                                                            <option>Afghanistan</option>
-                                                            <option>Belgium</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <label class="l-contact">
-                                                        Address  
-                                                        <em>*</em>
-                                                    </label>
-                                                    <div class="di-na bs">
-                                                        <input class="form-control" type="text" required="" name="name"  placeholder="Street address">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="di-na bs tana">
-                                                        <input class="form-control" type="text" required="" name="name" placeholder="Apartment, suite, unit etc. (optional)">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <label class="l-contact">
-                                                        Town / City  
-                                                        <em>*</em>
-                                                    </label>
-                                                    <div class="di-na bs">
-                                                        <input class="form-control" type="text" required="" name="name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="country-select">
-                                                        <label class="l-contact">
-                                                            District 
-                                                            <em>*</em>
-                                                        </label>
-                                                        <select class="email s-email s-wid">
-                                                            <option>mymensingh</option>
-                                                            <option>dhaka</option>
-                                                            <option>khulna</option>
-                                                            <option>kumillah</option>
-                                                            <option>chadpur</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="di-na bs">
-                                                        <label class="l-contact">
-                                                        Postcode / ZIP
-                                                        <em>*</em>
-                                                        </label>
-                                                        <input class="form-control" type="text" required="" name="name">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="di-na bs">
-                                                <label class="l-contact">
-                                                    Order Notes
-                                                </label>
-                                                <textarea class="input-text " placeholder="Notes about your order, e.g. special notes for delivery." name="order_comments"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 text-center">
-                                            <p class="checkout-coupon">
-                                                <input type="submit" value="CONTINUE">
-                                            </p>
-                                        </div>
-                                            
-                                    </div>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="profile">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="top-check-text">
-                                                <div class="check-down">
-                                                    <h3 class="checkbox9">INFORMATION</h3>
-                                                    <span><a class="ro-edit-customer-info" href="#">Edit</a></span>
-                                                </div>
-                                                <div class="ro-content2">
-                                                    <div class="ro-info2">
-                                                        <p>
-                                                            <span>Email Address: </span>
-                                                            tasnimakter903@yahoo.com
-                                                        </p>
-                                                    </div>
-                                                    <div class="ro-info2">
-                                                        <p>
-                                                            <span>Country: </span>
-                                                            BD
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <form action="#" class="all-payment">
-                                                <div class="all-paymet-border">
-                                                    <div class="payment-method">
-                                                        <div class="pay-top sin-payment">
-                                                            <input id="payment_method_1" class="input-radio" type="radio" value="cheque" checked="checked" name="payment_method">
-                                                            <label for="payment_method_1"> Direct Bank Transfer </label>
-                                                            <div class="payment_box payment_method_bacs">
-    <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="pay-top sin-payment">
-                                                            <input id="payment_method_2" class="input-radio" type="radio" value="cheque" name="payment_method">
-                                                            <label for="payment_method_2"> Cheque Payment  </label>
-                                                            <div class="payment_box payment_method_bacs">
-    <p>Please send your cheque to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="pay-top sin-payment">
-                                                            <input id="payment_method_3" class="input-radio" type="radio" value="cheque" name="payment_method">
-                                                            <label for="payment_method_3">PayPal <img alt="" src="img/icon-img/44.png"><a href="#">What is PayPal?</a></label>
-                                                            <div class="payment_box payment_method_bacs">
-    <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-row place-order">
-                                                        <input class="button alt" type="submit" value="Place order" >
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="message">
-                                    <div class="last-check">
-                                        <h3 class="checkbox9">complete</h3>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Покупки -->
-                    <div class="col-md-5 col-sm-12">
+                    {% if cart.products.count %}
+                    <div class="col-md-5 col-sm-12 mt-5">
                         <div class="ro-checkout-summary">
+                            {% if not cart.products.count %}
                             <div class="ro-title">
-                                <h3 class="checkbox9">Покупки</h3>
+                                <h3 class="checkbox9">Ваша корзина пуста</h3>
                             </div>
-                            {% for item in cart %}
+                            {% else %}
+                            <div class="ro-title">
+                                <h3 class="checkbox9">Корзина</h3>
+                            </div>
+                            {% endif %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-warning" style="text-align: center;" role="alert">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            {% for item in cart.products.all %}
                             <div class="ro-body">
                                 <div class="ro-item">
-                                    
-                                    <div class="ro-image">
-                                        <a href="#">
+                                    <div class="ro-image mt-5">
+                                        <a href="{{ item.content_object.get_absolute_url }}">
                                             <img src="{{ item.content_object.image.url }}" alt="">
                                         </a>
                                     </div>
                                     <div>
                                         <div class="tb-beg">
-                                            <a href="#">Наименование товара: {{ item.content_object.title }}</a>
+                                            <a href="{{ item.content_object.get_absolute_url }}">Наименование товара: {{ item.content_object.title }}</a>
                                         </div>
                                     </div>
+                                    <br>
+                                    <br>
                                     <div>
                                         <div class="ro-quantity">
-                                            <strong class="product-quantity">Количество: {{ item.quantity }}</strong>
+                                            <form action="{% url 'change_quantity' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}" method="POST">
+                                                <p class="quantity mt-1" style="float: left;"><strong>Штук:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></p>
+                                                {% csrf_token %}
+                                                <input type="number" class="form-control" name="quantity" min="1" style="width: 70px; height: 25px; float: left;" value="{{ item.quantity }}">&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <strong><input type="submit" class="form-control bg-dark"  style="width: 70px; height: 25px; float: right; text-align: center; color: white;" value="Изменить"></strong>
+                                            </form>
                                         </div>
-                                        <div class="product-total">
-                                            <span class="amount">Цена товара: {{ item.content_object.price }}</span>
+                                        <br>
+                                        <br>
+                                        <div class="ro-quantity">
+                                            <strong class="product-quantity">Цена товара: {{ item.content_object.price }}</strong>
                                         </div>
+                                      
+                                        <br>
+                                        <a class="button" style="float: right;" href="{% url 'delete_product_from_cart' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}"><button class="btn btn-primary bg-dark " style="text-align: center; height: 25px; width: 70px;">Удалить</button></a>
                                     </div>
-        
                                 </div>
                             </div>
                             {% endfor %}
                             <div class="ro-footer">
                                 <div>
                                     <p>
-                                        ИТОГОВАЯ СУММА К ОПЛАТЕ: 
+                                    ОБЩАЯ КОЛИЧЕСТВО ПРОДУКТОВ: 
                                         <span>
                                             <strong>
-                                                <span class="amount">{{ item.final_price }}</span>
+                                                <span class="amount">{{ cart.total_products }}</span>
                                             </strong>
                                         </span>
                                     </p>
+                                    <p>
+                                    ИТОГОВАЯ СУММА: 
+                                        <span>
+                                            <strong>
+                                                <span class="amount">{{ cart.final_price }}</span>
+                                            </strong>
+                                        </span>
+                                    </p>
+                                    <div class="col-md-12 text-center">
+                                        <p class="checkout-coupon">
+                                            <input type="submit" value="Оплатить">
+                                        </p>
+                                    </div>  
                                 </div>
                             </div>
-                           
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
