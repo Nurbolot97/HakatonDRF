@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from . models import *
-from  django.views.generic import CreateView, View
+from .models import *
+from django.views.generic import CreateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UserProfileForm, SignUpForm
 from django.contrib.auth import login as auth_login

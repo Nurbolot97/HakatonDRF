@@ -1,8 +1,10 @@
 from django.db import models
-from user_accounts.models import User
+from user_accounts.models import User, Order
 from django.urls import reverse
+
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+
 
 
 
@@ -126,6 +128,9 @@ class Cart(models.Model):
         return f"{self.id}"
 
     def save(self, *args, **kwargs):
+        if not self.id:
+            super(Cart, self).save(*args, **kwargs)
+        super(Cart, self).save(*args, **kwargs)
         cart_data = self.products.aggregate(models.Sum('final_price'), models.Count('id'))
         if cart_data.get('final_price__sum'):
             self.final_price = cart_data['final_price__sum']
@@ -173,6 +178,8 @@ class Display(Product):
 
     def get_absolute_url(self):
         return get_product_url(self, 'product_detail')
+
+
 
 
 

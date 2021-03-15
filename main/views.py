@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 
 
+
 class MainPageView(CartMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -93,7 +94,6 @@ class ProductDetailView(CartMixin, CategoryMixin, DetailView):
 class AddToCartView(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
-        print(request)
         try:
             ct_model, product_slug = kwargs.get('ct_model'), kwargs.get('slug')
             content_type = ContentType.objects.get(model=ct_model)
@@ -168,6 +168,10 @@ class CartView(CartMixin, CategoryMixin, View):
             'categories': categories
         }
         return render(request, 'checkout.html', context)
+
+
+
+
 
 
 
