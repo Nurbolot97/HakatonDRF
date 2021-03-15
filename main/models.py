@@ -1,10 +1,10 @@
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
-
-from user_accounts.models import User, Order
-from api.models import Cart
 
 
 
@@ -98,8 +98,8 @@ class Product(models.Model):
 
 class CartProduct(models.Model):
 
-    user = models.ForeignKey(User, verbose_name='Покупатель', on_delete=models.CASCADE)
-    cart = models.ForeignKey(Cart, verbose_name='Корзина', on_delete=models.CASCADE, related_name='related_products')
+    user = models.ForeignKey('User', verbose_name='Покупатель', on_delete=models.CASCADE)
+    cart = models.ForeignKey('Cart', verbose_name='Корзина', on_delete=models.CASCADE, related_name='related_products')
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
@@ -115,29 +115,17 @@ class CartProduct(models.Model):
 
 
 
-# class Cart(models.Model):
+class Cart(models.Model):
 
-#     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Владелец')
-#     products = models.ManyToManyField(CartProduct, blank=True, related_name='related_cart')
-#     total_products = models.PositiveIntegerField(default=0)
-#     final_price = models.DecimalField(max_digits=9, decimal_places=2, default=0, verbose_name='Общая цена')
-#     in_order = models.BooleanField(default=False)
-#     for_anonim_user = models.BooleanField(default=False)
+    owner = models.ForeignKey('User', null=True, on_delete=models.CASCADE, verbose_name='Владелец')
+    products = models.ManyToManyField(CartProduct, blank=True, related_name='related_cart')
+    total_products = models.PositiveIntegerField(default=0)
+    final_price = models.DecimalField(max_digits=9, decimal_places=2, default=0, verbose_name='Общая цена')
+    in_order = models.BooleanField(default=False)
+    for_anonim_user = models.BooleanField(default=False)
 
-#     def __str__(self):
-#         return f"{self.id}"
-
-#     def save(self, *args, **kwargs):
-#         if not self.id:
-#             super(Cart, self).save(*args, **kwargs)
-#         super(Cart, self).save(*args, **kwargs)
-#         cart_data = self.products.aggregate(models.Sum('final_price'), models.Count('id'))
-#         if cart_data.get('final_price__sum'):
-#             self.final_price = cart_data['final_price__sum']
-#         else:
-#             self.final_price = 0
-#         self.total_products = cart_data['id__count']
-#         super().save(*args, **kwargs)
+    def __str__(self):
+        return f"{self.id}"
 
 
 class Wheel(Product):
@@ -180,6 +168,94 @@ class Display(Product):
         return get_product_url(self, 'product_detail')
 
 
+class UserManager(BaseUserManager):
+
+    use_in_migrations = True
+
+    def _create_user(self, email, password, **extra_fields):
+        if not email:
+            raise ValueError('Invalid email')
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self,email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(email, password, **extra_fields)
+        
+    def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must be is staff')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must be a superuser')
+        return self._create_user(email, password, **extra_fields)
+        
+
+class User(AbstractUser):
+
+    username = None
+    email = models.EmailField(_('email_address'), unique=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    phone = models.CharField(max_length=255, null=True, blank=True)
+    password = models.CharField(max_length=255)
+    password2 = models.CharField(max_length=255)
+    registered_at = models.DateTimeField(auto_now_add=True)
+    photo = models.ImageField(upload_to = "photos/Y%/%m/%d/", null=True, blank=True)
+    orders = models.ManyToManyField('Order', verbose_name='Заказы покупателя', related_name='related_user')
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['password', 'password2']
+
+    objects = UserManager()
+
+    def __str__(self):
+        return f"{self.first_name} - {self.last_name} - {self.email}"
+
+
+class Order(models.Model):
+
+    STATUS_NEW = 'new'
+    STATUS_IN_PROGRESS = 'in_progress'
+    STATUS_READY = 'is_ready'
+    STATUS_COMPLETED = 'completed'
+
+    BUYING_TYPE_SELF = 'self'
+    BUYING_TYPE_DELIVERY = 'delivery'
+
+    STATUS_CHOICES = (
+        (STATUS_NEW, 'Новый заказ'),
+        (STATUS_IN_PROGRESS, 'Заказ в обработке'),
+        (STATUS_READY, 'Заказ готов'),
+        (STATUS_COMPLETED, 'Заказ выполнен')
+    )
+
+    BUYING_TYPE_CHOICES = (
+        (BUYING_TYPE_SELF, 'Самовывоз'),
+        (BUYING_TYPE_DELIVERY, 'Доставка')
+    )
+
+
+    customer = models.ForeignKey(User, verbose_name='Покупатель', related_name='related_order', on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=255, verbose_name='Имя')
+    last_name = models.CharField(max_length=255, verbose_name='Фамилия')
+    phone = models.CharField(max_length=255, verbose_name='Телефон')
+    address = models.CharField(max_length=255, null=True, blank=True)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, verbose_name='Корзина')
+    status = models.CharField(max_length=255, verbose_name='Статус заказа', choices=STATUS_CHOICES, default=STATUS_NEW)
+    buying_type = models.CharField(max_length=255, verbose_name='Тип заказа', choices=BUYING_TYPE_CHOICES, default=BUYING_TYPE_SELF)
+    comment = models.TextField(verbose_name='Комментарий к заказу', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now=True, verbose_name='Дата создания заказа')
+    ordered_at = models.DateField(verbose_name='Дата получения заказа', default=timezone.now)
+
+    def __str__(self):
+        return str(self.id)
 
 
 

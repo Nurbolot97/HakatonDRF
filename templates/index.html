@@ -72,6 +72,13 @@
 
         <!-- slider-section-start -->
         {% block content %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning" style="text-align: center;" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         <section class="slider-main-area">
             <div class="main-slider an-si">
                 <div class="bend niceties preview-2 hm-ver-1">

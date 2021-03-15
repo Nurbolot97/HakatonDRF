@@ -1,17 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.db import transaction
 
 from .models import *
-from api.models import Cart
-from user_accounts.models import User
 from .mixins import CategoryMixin, CartMixin
 from django.contrib.contenttypes.models import ContentType
 from .forms import OrderForm
+from .utils import recalc_cart
 from django.views.generic import (TemplateView, ListView, 
                                     DetailView, View)
-
-
 
 
 
@@ -112,7 +110,7 @@ class AddToCartView(CartMixin, CategoryMixin, View):
             )
             if created:
                 self.cart.products.add(cart_product)
-            self.cart.save()
+            recalc_cart(self.cart)
             messages.add_message(request, messages.INFO, 'Товар успешно добавлен!')
             return HttpResponseRedirect('/cart/')
         except:
@@ -134,7 +132,7 @@ class DeleteFromCartView(CartMixin, CategoryMixin, View):
             )
             self.cart.products.remove(cart_product)
             cart_product.delete()
-            self.cart.save()
+            recalc_cart(self.cart)
             messages.add_message(request, messages.INFO, 'Товар успешно удален!')
             return HttpResponseRedirect('/cart/')
         except:
@@ -158,7 +156,7 @@ class ChangeQuantityView(CartMixin, CategoryMixin, View):
             print(quantity)
             cart_product.quantity = quantity
             cart_product.save()
-            self.cart.save()
+            recalc_cart(self.cart)
             messages.add_message(request, messages.INFO, 'Количество успешно изменено!')
             return HttpResponseRedirect('/cart/')
         except:
@@ -191,11 +189,13 @@ class OrderView(CartMixin, CategoryMixin, View):
 
 class MakeOrderView(CartMixin, View):
 
-    def post(self, request, **args, **kwargs):
+    @transaction.atomic
+    def post(self, request, *args, **kwargs):
         form = OrderForm(request.POST or None)
+        email = User.objects.get(email=request.user.email)
         if form.is_valid():
             new_order = form.save(commit=False)
-            new_order.email = User.objects.get(email=request.user.email)
+            new_order.customer = email
             new_order.first_name = form.cleaned_data['first_name']
             new_order.last_name = form.cleaned_data['last_name']
             new_order.phone = form.cleaned_data['phone']
@@ -203,8 +203,17 @@ class MakeOrderView(CartMixin, View):
             new_order.buying_type = form.cleaned_data['buying_type']
             new_order.ordered_at = form.cleaned_data['ordered_at']
             new_order.comment = form.cleaned_data['comment']
-            new_order.save()
+            new_order.cart = self.cart
             self.cart.in_order = True
+            new_order.save()
+            # self.cart.in_order = True
+            # self.cart.save()
+            # new_order.cart = self.cart
+            # new_order.save()
+            email.orders.add(new_order)
+            messages.add_message(request, messages.INFO, 'Ваш заказ успешно оформлен!')
+            return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/order-checkout/')
 
 
 
