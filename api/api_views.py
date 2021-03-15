@@ -1,6 +1,11 @@
 from user_accounts.models import User
+from main.models import *
+from user_accounts.models import *
 from django.shortcuts import redirect, render
-from .serializers import UserRegisterSerializer
+from .serializers import (UserRegisterSerializer, CategorySerializer, 
+                            EnginesSerializer, DisplaysSerializer,
+                            WheelsSerializer, UserListSerializer
+                            )
 from rest_framework import status, response, decorators
 from django.core.mail import EmailMultiAlternatives
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -9,6 +14,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from rest_framework.renderers import JSONRenderer
 from .token import account_activation_token
 from django.utils.encoding import force_bytes, force_text
+from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.filters import SearchFilter
 
 
 
@@ -51,4 +58,63 @@ def activate(request, uidb64, token):
     else:
         return response.Response('Invalid')
 
+
+class UsersListApiView(ListAPIView):
+
+    serializer_class = UserListSerializer
+    queryset = User.objects.all()
+
+
+class CategoryListApiView(ListAPIView):
+
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
+    filter_backends = [SearchFilter]
+    search_fields = ['name_category']
+
+
+class EnginesListApiView(ListAPIView):
+
+    serializer_class = EnginesSerializer
+    queryset = Engine.objects.all()
+    filter_backends = [SearchFilter]
+    search_fields = ['price', 'title']
+
+
+class EngineDetailApiView(RetrieveAPIView):
+
+    serializer_class = EnginesSerializer
+    queryset = Engine.objects.all()
+    lookup_field = 'id'
+
+
+
+class DisplayListApiView(ListAPIView):
+
+    serializer_class = DisplaysSerializer
+    queryset = Display.objects.all()
+    filter_backends = [SearchFilter]
+    search_fields = ['price', 'title']
+
+
+class DisplayDetailApiView(RetrieveAPIView):
+
+    serializer_class = DisplaysSerializer
+    queryset = Display.objects.all()
+    lookup_field = 'id'
+
+
+class WheelListApiView(ListAPIView):
+
+    serializer_class = WheelsSerializer
+    queryset = Wheel.objects.all()
+    filter_backends = [SearchFilter]
+    search_fields = ['price', 'title']
+
+
+class WheelDetailApiView(RetrieveAPIView):
+
+    serializer_class = WheelsSerializer
+    queryset = Wheel.objects.all()
+    lookup_field = 'id'
 
