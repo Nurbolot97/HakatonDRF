@@ -48,7 +48,7 @@
                                     <br>
                                     <div>
                                         <div class="ro-quantity">
-                                            <form action="{% url 'change_quantity' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}" method="POST">
+                                            <form action="" method="POST">
                                                 <p class="quantity mt-1" style="float: left;"><strong>Штук:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></p>
                                                 {% csrf_token %}
                                                 <input type="number" class="form-control" name="quantity" min="1" style="width: 70px; height: 25px; float: left;" value="{{ item.quantity }}">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -62,7 +62,7 @@
                                         </div>
                                       
                                         <br>
-                                        <a class="button" style="float: right;" href="{% url 'delete_product_from_cart' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}"><button class="btn btn-primary bg-dark " style="text-align: center; height: 25px; width: 70px;">Удалить</button></a>
+                                        <a class="button" style="float: right;" href=""><button class="btn btn-primary bg-dark " style="text-align: center; height: 25px; width: 70px;">Удалить</button></a>
                                     </div>
                                 </div>
                             </div>

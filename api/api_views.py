@@ -1,6 +1,8 @@
+import jwt
+import os
 from django.shortcuts import redirect, render
-from rest_framework import generics, views
-from rest_framework import status, response, decorators
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import generics, views, status, response, decorators
 from django.core.mail import EmailMultiAlternatives
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
@@ -11,8 +13,6 @@ from rest_framework.filters import SearchFilter
 from drf_yasg.utils import swagger_auto_schema
 from django.http import HttpResponsePermanentRedirect
 from drf_yasg import openapi
-import jwt
-import os
 from django.conf import settings
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import AllowAny
@@ -20,19 +20,23 @@ from rest_framework.response import Response
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.generics import (RetrieveAPIView, ListAPIView, 
-                                    CreateAPIView, RetrieveUpdateDestroyAPIView
+                                    CreateAPIView, RetrieveUpdateDestroyAPIView,
+                                    UpdateAPIView, DestroyAPIView
                                     )
 
 
 from main.models import *
 from .utils import Util
-from .permissions import IsCategoryOwner, IsAuthenticated
+from .service import EngineFilter
+from .permissions import IsCommentOwner
 from .renderers import UserRenderer
 from .token import account_activation_token
 from .serializers import (CategorySerializer, EnginesSerializer, DisplaysSerializer,
                             WheelsSerializer, UserListSerializer,UserRegisterSerializer,
                             ResetPasswordSerializer, SetNewPasswordSerializer, 
+                            CommentSerializer
                             )
 
 
@@ -135,7 +139,6 @@ class PasswordTokenCheckAPI(generics.GenericAPIView):
                 return Response({'error': 'Token is not valid, please request a new one'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 class SetNewPasswordAPIView(generics.GenericAPIView):
     serializer_class = SetNewPasswordSerializer
 
@@ -145,11 +148,11 @@ class SetNewPasswordAPIView(generics.GenericAPIView):
         return Response({'success': True, 'message': 'Password reset success'}, status=status.HTTP_200_OK)
 
 
-
 class UsersListApiView(ListAPIView):
 
     serializer_class = UserListSerializer
     queryset = User.objects.all()
+    permission_classes = [IsAdminUser]
 
 
 class ProductsPagination(PageNumberPagination):
@@ -163,7 +166,7 @@ class CategoryCreateApiView(CreateAPIView):
     
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
-    permission_classes = [IsCategoryOwner]
+    permission_classes = [IsAdminUser]
 
 
 class CategoryListApiView(ListAPIView):
@@ -171,7 +174,6 @@ class CategoryListApiView(ListAPIView):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
     pagination_class = ProductsPagination
-    permission_classes = [IsAuthenticated]
     filter_backends = [SearchFilter]
     search_fields = ['name_category']
 
@@ -180,7 +182,7 @@ class CategoryApiView(RetrieveUpdateDestroyAPIView):
 
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
-    permission_classes = [IsCategoryOwner]
+    permission_classes = [IsAdminUser]
     lookup_field = 'id'
 
 
@@ -189,14 +191,59 @@ class EnginesListApiView(ListAPIView):
     serializer_class = EnginesSerializer
     queryset = Engine.objects.all()
     pagination_class = ProductsPagination
-    filter_backends = [SearchFilter]
-    search_fields = ['price', 'title']
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = EngineFilter
 
 
 class EngineDetailApiView(RetrieveAPIView):
 
     serializer_class = EnginesSerializer
     queryset = Engine.objects.all()
+    lookup_field = 'id'
+
+
+class EngineCreateApiView(CreateAPIView):
+
+    serializer_class = EnginesSerializer
+    queryset = Engine.objects.all()
+    permission_classes = [IsAdminUser]
+
+
+class EngineUpdateApiView(UpdateAPIView):
+
+    serializer_class = EnginesSerializer
+    queryset = Engine.objects.all()
+    permission_classes = [IsAdminUser]
+    lookup_field = 'id'
+
+
+class EngineDestroyApiView(DestroyAPIView):
+
+    serializer_class = EnginesSerializer
+    queryset = Engine.objects.all()
+    permission_classes = [IsAdminUser]
+    lookup_field = 'id'
+
+
+
+class CommentListApiView(ListAPIView):
+
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
+   
+
+class CommentCreateApiView(CreateAPIView):
+
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
+    permission_classes = [IsAuthenticated]
+
+
+class CommentDestroyApiView(DestroyAPIView):
+
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
+    permission_classes = [IsAdminUser]
     lookup_field = 'id'
 
 

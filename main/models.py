@@ -63,7 +63,6 @@ class CategoryManager(models.Manager):
         return data
 
 
-
 class Category(models.Model):
 
     name_category = models.CharField(max_length=255, verbose_name='Имя категории')
@@ -77,7 +76,6 @@ class Category(models.Model):
         return reverse('category_detail', kwargs={'slug': self.slug})
 
 
-
 class Product(models.Model):
 
     class Meta:
@@ -89,6 +87,7 @@ class Product(models.Model):
     image = models.ImageField(verbose_name='Изображение')
     description = models.TextField(verbose_name='Описание', null=True)
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Цена')
+    comments = models.ForeignKey('Comment', on_delete=models.CASCADE, verbose_name='Комментарий', null=True)
 
     def __str__(self):
         return self.title
@@ -155,6 +154,17 @@ class Engine(Product):
         return get_product_url(self, 'product_detail')
 
 
+class Comment(models.Model):
+
+    text = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    status = models.BooleanField(default=False)
+
+    def __str__(self):  
+        return f"Comment by {self.author} on {self.engine}"
+
+
 class Display(Product):
 
     diagonal = models.CharField(max_length=255, verbose_name='Диагональ')
@@ -210,6 +220,7 @@ class User(AbstractUser):
     registered_at = models.DateTimeField(auto_now_add=True)
     photo = models.ImageField(upload_to = "photos/Y%/%m/%d/", null=True, blank=True)
     orders = models.ManyToManyField('Order', verbose_name='Заказы покупателя', related_name='related_user')
+    comments = models.ForeignKey(Comment, on_delete=models.CASCADE, verbose_name='Комментарий', null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['password', 'password2']

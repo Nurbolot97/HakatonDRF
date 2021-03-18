@@ -1,16 +1,14 @@
+from django.contrib import auth
 from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from django.contrib import auth
-
-from main.models import User
-
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
-from main.models import Category, Engine, Wheel, Display, User, Order
+
+from main.models import Category, Engine, Wheel, Display, User, Order, Comment
 
 
 
@@ -101,10 +99,6 @@ class SetNewPasswordSerializer(serializers.Serializer):
         return super().validate(attrs)
 
 
-
-
-
-
 class CategorySerializer(serializers.ModelSerializer):
 
     name_category = serializers.CharField(required=True)
@@ -136,6 +130,16 @@ class EnginesSerializer(BaseProductSerializer, serializers.ModelSerializer):
     class Meta:
         model = Engine
         fields = '__all__'
+
+
+class CommentSerializer(serializers.ModelSerializer):
+
+    text = serializers.CharField(required=True)
+    engine = serializers.PrimaryKeyRelatedField(queryset=Engine.objects)
+
+    class Meta:
+        model = Comment
+        fields = ['text', 'engine', 'id']
 
 
 class DisplaysSerializer(BaseProductSerializer, serializers.ModelSerializer):
