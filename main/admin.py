@@ -37,6 +37,7 @@ admin.site.register(Engine, EngineAdmin)
 admin.site.register(Display, DisplayAdmin)
 admin.site.register(Order)
 admin.site.register(User)
+admin.site.register(Comment)
 
 
 

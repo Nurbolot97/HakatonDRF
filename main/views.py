@@ -112,9 +112,9 @@ class AddToCartView(CartMixin, CategoryMixin, View):
                 self.cart.products.add(cart_product)
             recalc_cart(self.cart)
             messages.add_message(request, messages.INFO, 'Товар успешно добавлен!')
-            return HttpResponseRedirect('/cart/')
+            return HttpResponseRedirect('/main/cart/')
         except:
-            return HttpResponseRedirect('/accounts/signup/')
+            return HttpResponseRedirect('/main/cart/')
 
 
 class DeleteFromCartView(CartMixin, CategoryMixin, View):
@@ -134,9 +134,9 @@ class DeleteFromCartView(CartMixin, CategoryMixin, View):
             cart_product.delete()
             recalc_cart(self.cart)
             messages.add_message(request, messages.INFO, 'Товар успешно удален!')
-            return HttpResponseRedirect('/cart/')
+            return HttpResponseRedirect('/main/cart/')
         except:
-            return HttpResponseRedirect('/accounts/signup/')
+            return HttpResponseRedirect('/main/cart/')
 
 
 class ChangeQuantityView(CartMixin, CategoryMixin, View):
@@ -153,14 +153,13 @@ class ChangeQuantityView(CartMixin, CategoryMixin, View):
                 object_id = product.id
             )
             quantity = int(request.POST.get('quantity'))
-            print(quantity)
             cart_product.quantity = quantity
             cart_product.save()
             recalc_cart(self.cart)
             messages.add_message(request, messages.INFO, 'Количество успешно изменено!')
-            return HttpResponseRedirect('/cart/')
+            return HttpResponseRedirect('/main/cart/')
         except:
-            return HttpResponseRedirect('/accounts/signup/')
+            return HttpResponseRedirect('/main/cart/')
 
 
 class CartView(CartMixin, CategoryMixin, View):
@@ -212,8 +211,8 @@ class MakeOrderView(CartMixin, View):
             # new_order.save()
             email.orders.add(new_order)
             messages.add_message(request, messages.INFO, 'Ваш заказ успешно оформлен!')
-            return HttpResponseRedirect('/')
-        return HttpResponseRedirect('/order-checkout/')
+            return HttpResponseRedirect('/main/')
+        return HttpResponseRedirect('/main/')
 
 
 
